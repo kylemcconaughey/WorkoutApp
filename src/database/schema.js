@@ -1,6 +1,3 @@
-// TODO
-// need to create many-to-many tables for most of these apparently
-
 /**
  * Creates database tables for a workout app.
  * @param {SQLite.SQLiteDatabase} db - The database instance.
@@ -46,12 +43,13 @@ export const createTables = async (db) => {
     `CREATE TABLE IF NOT EXISTS ExerciseDetails (
       ExerciseDetailId INTEGER PRIMARY KEY AUTOINCREMENT,
       ExerciseId INTEGER,
-      Order INTEGER,
+      \`Order\` INTEGER,
       SetDetails INTEGER,
-      FOREIGN KEY (ExerciseId) REFERENCES Exercises (ExerciseId) ON DELETE CASCADE
+      FOREIGN KEY (ExerciseId) REFERENCES Exercises (ExerciseId) ON DELETE CASCADE,
+      FOREIGN KEY (SetDetails) REFERENCES SetDetails (SetDetailId) ON DELETE CASCADE
     );`,
 
-    // Workout
+    // Workouts
     `CREATE TABLE IF NOT EXISTS Workouts (
       WorkoutId INTEGER PRIMARY KEY AUTOINCREMENT,
       UserId INTEGER,
@@ -72,7 +70,7 @@ export const createTables = async (db) => {
     `CREATE TABLE IF NOT EXISTS CompletedExercises (
       CompletedExerciseId INTEGER PRIMARY KEY AUTOINCREMENT,
       ExerciseId INTEGER,
-      Order INTEGER,
+      \`Order\` INTEGER,
       FOREIGN KEY (ExerciseId) REFERENCES Exercises (ExerciseId) ON DELETE CASCADE
     );`,
 
